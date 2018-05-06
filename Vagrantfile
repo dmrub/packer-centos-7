@@ -39,4 +39,18 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "echo Hello, World"
   end
 
+  # libvirt
+  # `vagrant up libvirt --provider=libvirt`
+  config.vm.define "libvirt" do |libvirt|
+    libvirt.vm.hostname = "libvirt-centos7"
+    libvirt.vm.box = "file://builds/libvirt-centos7.box"
+
+    config.vm.provider :libvirt do |v|
+      v.memory = 1024
+      v.cpus = 1
+    end
+
+    config.vm.provision "shell", inline: "echo Hello, World"
+  end
+
 end
