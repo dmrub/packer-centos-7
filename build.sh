@@ -6,5 +6,10 @@ set -eux
 
 cd "$THIS_DIR"
 vagrant box remove 'file://builds/virtualbox-centos7.box' || true
-packer build --only=virtualbox-iso centos7.json
+if type packer.io &> /dev/null; then
+    PACKER=packer.io
+else
+    PACKER=packer
+fi
+$PACKER build --only=virtualbox-iso centos7.json
 vagrant up virtualbox --provider=virtualbox
